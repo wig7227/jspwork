@@ -21,6 +21,33 @@ create table member(
     job varchar2(30)
 );
 
+
+
+create table votelist (
+    num number primary key,
+    question varchar2(200) not null,
+    sdate date,
+    edate date,
+    wdate date,
+    type number default 1 not null,
+    active number default 1
+);
+    
+create table voteitem (
+    listnum number,
+    itemnum number,
+    item varchar2(50),
+    count number default 0,
+    PRIMARY KEY(listnum, itemnum)
+);
+
+DROP TABLE voteitem;
+
+ALTER TABLE voteitem ADD PRIMARY KEY(voteitem, itemnum);
+
+
+CREATE SEQUENCE SEQ_VOTE;
+
 COMMENT ON COLUMN MEMBER.ID IS '회원아이디';
 COMMENT ON COLUMN MEMBER.PWD IS '회원비밀번호';
 COMMENT ON COLUMN MEMBER.NAME IS '회원이름';
@@ -29,10 +56,12 @@ COMMENT ON COLUMN MEMBER.BIRTHDAY IS '회원생일';
 COMMENT ON COLUMN MEMBER.EMAIL IS '회원이메일';
 COMMENT ON COLUMN MEMBER.ZIPCODE IS '우편번호';
 COMMENT ON COLUMN MEMBER.ADDRESS IS '회원주소';
-COMMENT ON COLUMN MEMBER.DETAIL_ADDRESS IS '회원상세주소';
+COMMENT ON COLUMN MEMBER.DETAILADDRESS IS '회원상세주소';
 COMMENT ON COLUMN MEMBER.HOBBY IS '회원취미';
 COMMENT ON COLUMN MEMBER.JOB IS '회원직업';
 
 insert into member values('user01','pass01','홍길동','1','990202','qwer@naver.com','13321','서울특별시 강남구 한국빌딩','801호','01010','학생');
+
+COMMENT ON COLUMN votelist.num IS '설문번호';
 
 commit;
