@@ -8,7 +8,7 @@ public class VoteItem {
 	private String[] item;
 	private int count;
 	
-	public VoteItem() {
+	public VoteItem() { 
 		super();
 	}
 
