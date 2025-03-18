@@ -1,4 +1,4 @@
-package ajax01;
+package com.tjoeun.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,21 +7,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
-public class AjaxController1 extends HttpServlet {
+public class HelloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String str = request.getParameter("input");
+		request.setAttribute("인사", "hello");
 		
-		String responseDate = "입력된 값 : " + str + ", 길이 : " + str.length();
-		
-		// 응답데이터 돌려주기
-		response.setContentType("text/html");
-		response.getWriter().print(responseDate);
+		request.getRequestDispatcher("views/01_EL/03.hello.jsp").forward(request, response);
 	}
-
-
-	
 
 }

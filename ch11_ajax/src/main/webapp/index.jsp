@@ -55,7 +55,7 @@
 	- url : 요청할 url(필수 속성)
 	- type|method : 요청전송방식(get(default) / post)
 	- data : 요청시 전달할 값
-	- seccess : ajax 통신이 성공했을때 실행할 함수 정의
+	- success : ajax 통신이 성공했을때 실행할 함수 정의
 	- error : ajax 통신이 실행했을 때 실행할 함수 정의
 	- complete : ajax 통신의 성공과 실패에 상관없이 무조건 실행할 함수 정의
 	
@@ -96,7 +96,7 @@
 				$.ajax({
 					url : "ajax1.do",
 					data : {input: $("#input1").val()},
-					type : "get",
+					type : "get",	//기본이 get 방식 (빼도 됨)
 					success : function (result) {
 						console.log(result);
 						$("#output1").text(result);
@@ -144,7 +144,7 @@
 		})
 	</script>  -->
 	
-	
+	<!-- id input에 넣으면 바로바로 쓸 수 있는지 나타내줌 -->
 	<form action="idCheck.me" id="enrollFrom">
 		<p>ID : <input name="id" id="id"></p>
 		<div id="checkResult" style="font-size:0.9em; display:none"></div>
@@ -279,11 +279,20 @@
 			$.ajax({
 				url : "ajax4.do",
 				data : {id: $('#input4').val()},
-				success : function() {
+				success : function(result) {
 					console.log(result);
+					/* JSONObject로 넘겼을 때
 					const value = "******* 검색 결과 *******"
 								+ "ID : " + result.userId + "<br>"
 								+ "이름 : " + result.userName + "<br>"
+								+ "성별 : " + result.gender + "<br>"
+								+ "email : " + result.email + "<br>"
+					*/
+					
+					// Gson으로 넘겼을 때
+					const value = "******* 검색 결과 *******"
+								+ "ID : " + result.id + "<br>"
+								+ "이름 : " + result.name + "<br>"
 								+ "성별 : " + result.gender + "<br>"
 								+ "email : " + result.email + "<br>"
 						$('#output4').html(value);
@@ -296,7 +305,57 @@
 	})
 	</script>
 	
+	<br><br>
 	
+	<h3>4. 여러 bean객체들을 ArrayList로 받기</h3>
+	
+
+	<input type="button" id="btn5" value="전송"> <br><br>
+	
+	
+	<table id="output5" border="1">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>이름</th>
+				<th>성별</th>
+				<th>EMAIL</th>
+			</tr>
+		</thead>
+		<tbody>
+		
+		</tbody>
+	</table>
+	
+	<script>
+	$(() => {
+		$('#btn5').click(function() {
+			$.ajax({
+				url: "ajax5.do",
+				success: function(result) {
+					console.log(result);
+					
+					let value = "";
+					for(let i=0; i<result.length; i++) {
+						value += "<tr>"
+							   +" <td>" + result[i].id + "</td>"
+							   +" <td>" + result[i].name + "</td>"
+							   +" <td>" + result[i].gender + "</td>"
+							   +" <td>" + result[i].email + "</td>"
+							   + "</tr>";
+					}
+					$('#output5 tbody').html(value);
+					
+				},
+				error: function() {
+					console.log("ajax통신 실패");
+					
+					}
+				
+			})
+		})
+	})
+	</script>
 	
 	<br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>

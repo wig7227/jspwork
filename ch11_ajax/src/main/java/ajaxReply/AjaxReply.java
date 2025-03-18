@@ -1,4 +1,4 @@
-package ajax01;
+package ajaxReply;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -6,22 +6,25 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
+import com.google.gson.Gson;
+import org.json.simple.JSONObject;
+import ajaxReply.Reply;
+import ajaxReply.ReplyDao;
 
-public class AjaxController1 extends HttpServlet {
+public class AjaxReply extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String str = request.getParameter("input");
+
+		int bnum = Integer.parseInt(request.getParameter("bnum"));
 		
-		String responseDate = "입력된 값 : " + str + ", 길이 : " + str.length();
+		ArrayList<Reply> alist = new ReplyDao().getAllReply(bnum);
 		
-		// 응답데이터 돌려주기
-		response.setContentType("text/html");
-		response.getWriter().print(responseDate);
+		response.setContentType("application/json");
+		new Gson().toJson(alist, response.getWriter());
+		
 	}
-
-
-	
 
 }
