@@ -24,12 +24,12 @@ public class ELServlet extends HttpServlet {
 		 *     이 영역에 데이터를 담으면 애플리케이션 전역에서 사용가능
 		 *     공유벙리가 가장 큼(jsp/servlet/java)
 		 *     
-		 *  2. HttpSession(session Scope)
+		 *  2. HttpSession(session Scope)★
 		 *     한 브라우저당 1개 존재하는 객체
 		 *     이 영역에 데이터를 담으면 jsp/servlet에서 사용가능
 		 *     공유범위가 2번째로 큼(jsp/servlet)
 		 *     
-		 *  3. HttpServletRequest(request Scope)
+		 *  3. HttpServletRequest(request Scope)★
 		 *     요청할 때마다 매번 생성되는 객체
 		 *     이영역에 데이터를 담으면 request객체를 포워딩 받는 응답 jsp에서만 사용가능
 		 *     공우범위 응담 jsp인
